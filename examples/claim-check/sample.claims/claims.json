@@ -1,0 +1,75 @@
+{
+ "source": "examples/claim-check/sample.md",
+ "source_sha256": "837c434395723cf83f938d6ebc61818e2196fe642fdfa62b8cf8d25803222e6b",
+ "claims": [
+  {
+   "id": "C001",
+   "line": 3,
+   "sentence": "올해 축제는 2026년 10월 24일부터 26일까지 시립도서관 앞마당에서 열립니다.",
+   "kinds": [
+    "수치",
+    "날짜"
+   ],
+   "evidence": "",
+   "quote": "",
+   "verdict": "확인 필요",
+   "rule_conditions_checked": null,
+   "also_lines": []
+  },
+  {
+   "id": "C002",
+   "line": 4,
+   "sentence": "신청은 1분이면 끝납니다.",
+   "kinds": [
+    "수치",
+    "단정"
+   ],
+   "evidence": "",
+   "quote": "",
+   "verdict": "확인 필요",
+   "rule_conditions_checked": null,
+   "also_lines": []
+  },
+  {
+   "id": "C003",
+   "line": 5,
+   "sentence": "참가자 전원에게 기념품을 드리며, 작년보다 방문객이 두 배 늘었습니다.",
+   "kinds": [
+    "비교",
+    "기관·이력"
+   ],
+   "evidence": "",
+   "quote": "",
+   "verdict": "확인 필요",
+   "rule_conditions_checked": null,
+   "also_lines": []
+  },
+  {
+   "id": "C004",
+   "line": 6,
+   "sentence": "지방자치법에 따라 주민 누구나 무료로 참여할 수 있습니다.",
+   "kinds": [
+    "규정",
+    "단정"
+   ],
+   "evidence": "",
+   "quote": "",
+   "verdict": "확인 필요",
+   "rule_conditions_checked": false,
+   "also_lines": []
+  },
+  {
+   "id": "C005",
+   "line": 7,
+   "sentence": "행사장은 지하철역에서 걸어서 5분 거리입니다.",
+   "kinds": [
+    "수치"
+   ],
+   "evidence": "",
+   "quote": "",
+   "verdict": "확인 필요",
+   "rule_conditions_checked": null,
+   "also_lines": []
+  }
+ ]
+}
