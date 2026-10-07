@@ -1,0 +1,13 @@
+{
+  "name": "winnermin-skills",
+  "description": "Korean workflow skills for Claude Code by WinnerMIN",
+  "owner": { "name": "WinnerMIN" },
+  "plugins": [
+    {
+      "name": "korean-workflow-skills",
+      "source": "./",
+      "description": "hwp, korean-law-lookup, claim-check, approval-board, coupang-api-safety, naver-searchadvisor-quota",
+      "author": { "name": "WinnerMIN" }
+    }
+  ]
+}

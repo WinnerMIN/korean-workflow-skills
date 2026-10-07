@@ -1,0 +1,8 @@
+{
+  "name": "korean-workflow-skills",
+  "version": "0.1.0",
+  "description": "Claude Code skills for Korean workflows: HWP/HWPX documents, Korean law lookup, Naver Search Advisor and Coupang Partners API limits, pre-publish fact checks, and a local approval board.",
+  "author": { "name": "WinnerMIN", "url": "https://github.com/WinnerMIN" },
+  "repository": "https://github.com/WinnerMIN/korean-workflow-skills",
+  "license": "MIT"
+}
