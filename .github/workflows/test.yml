@@ -1,0 +1,27 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: claim-check tests
+        run: python skills/claim-check/tests/test_extract_claims.py
+      - name: claim-check example ledger is current
+        run: |
+          python skills/claim-check/scripts/extract_claims.py examples/claim-check/sample.md -o /tmp/claims
+          python -c "import json; a=json.load(open('/tmp/claims/claims.json')); b=json.load(open('examples/claim-check/sample.claims/claims.json')); assert [c['sentence'] for c in a['claims']] == [c['sentence'] for c in b['claims']], 'example ledger is stale'"
+      - name: approval-board smoke test
+        run: python skills/approval-board/scripts/make_board.py examples/approval-board/items.json /tmp/board.html
+      - name: plugin manifests are valid JSON
+        run: python -c "import json; [json.load(open(p)) for p in ('.claude-plugin/plugin.json', '.claude-plugin/marketplace.json')]"
