@@ -1,5 +1,7 @@
 # korean-workflow-skills
 
+[![tests](https://github.com/WinnerMIN/korean-workflow-skills/actions/workflows/test.yml/badge.svg)](https://github.com/WinnerMIN/korean-workflow-skills/actions/workflows/test.yml)
+
 한국에서 일하는 사람을 위한 Claude Code 스킬 모음입니다. 한글(HWP) 문서, 한국 법령 조회, 네이버·쿠팡 파트너스 운영처럼 범용 AI 에이전트가 자주 틀리거나 모르는 한국 실무를 다룹니다.
 
 > **English summary**: A set of [Agent Skills](https://docs.claude.com/en/docs/claude-code/skills) (`SKILL.md`) for Korean workflows that general-purpose coding agents often get wrong: reading and editing Hangul (HWP/HWPX) documents, looking up Korean statutes and case law from primary sources, staying within Naver Search Advisor and Coupang Partners API limits, fact-checking marketing copy before publishing, and collecting bulk approvals through a local HTML board. The rules grew out of problems the author ran into while running Korean websites and documents with AI agents. The skills are written in Korean. MIT licensed.
@@ -41,7 +43,13 @@ cp -R skills/hwp skills/claim-check ~/.claude/skills/
 
 `hwp`와 `korean-law-lookup`은 외부 도구가 필요합니다. 각 도구의 설치 방법은 위 표의 원본 저장소를 따르세요. 이 저장소는 그 도구들을 포함하지 않습니다.
 
+## 사용 예시
+
+[`examples/`](examples/README.md)에 claim-check가 행사 안내문에서 뽑은 주장 검토표와, approval-board로 만든 승인 보드가 있습니다.
+
 ## 시험
+
+GitHub Actions가 push와 PR마다 아래 시험을 실행합니다.
 
 ```bash
 python3 skills/claim-check/tests/test_extract_claims.py
@@ -60,6 +68,21 @@ python3 skills/approval-board/tests/test_board.py board.html
 ## 기여
 
 버그 제보, 다른 한국 실무 스킬 제안, 문서 개선 PR을 환영합니다. 플랫폼 한도나 정책 수치를 고칠 때는 확인한 날짜와 출처를 함께 적어 주세요.
+
+## English
+
+The skills are written in Korean because they target Korean documents, laws, and platforms, but they work in any Claude Code session.
+
+| Skill | What it does |
+|---|---|
+| `hwp` | Read, fill, convert, and render Hangul `.hwp`/`.hwpx`/`.hml` files without Hancom Office, using [rhwp](https://github.com/edwardkim/rhwp) and [kordoc](https://github.com/chrisryugj/kordoc). Edits never overwrite the original and are checked by rendering. |
+| `korean-law-lookup` | Answer questions about Korean statutes and case law only from primary sources via [korean-law-mcp](https://github.com/chrisryugj/korean-law-mcp), verify every citation, and state effective dates. |
+| `claim-check` | Extract factual claims (numbers, dates, regulations, comparisons, absolute statements) from Korean copy and block publishing until each has a cited source and an independent reviewer's verdict. |
+| `approval-board` | Build a single-file, accessible local HTML board for approving, holding, or rejecting many candidates, and export the decisions as JSON. |
+| `coupang-api-safety` | Rules for code that calls the Coupang Partners API: per-minute peak limits, a single global throttle, staggered schedules, and a hard stop on 403 or warnings. |
+| `naver-searchadvisor-quota` | Daily per-account quota and submission priority for Naver Search Advisor crawl requests. |
+
+Install with `/plugin marketplace add WinnerMIN/korean-workflow-skills` and `/plugin install korean-workflow-skills@winnermin-skills`, or copy individual folders from `skills/` into `~/.claude/skills/`.
 
 ## 라이선스
 
