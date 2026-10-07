@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>로고 시안 3종 검토 (예시)</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16181d;--muted:#5b616e;--line:#d9dde4;--field:#6b7280;--ok:#0f7a3d;--hold:#9a5b00;--no:#b42318;--focus:#1d4ed8;--chip:#eef1f5}
+@media (prefers-color-scheme:dark){:root{--bg:#121417;--card:#1b1e23;--ink:#eceef2;--muted:#a3a9b5;--line:#30353d;--field:#8b93a1;--ok:#4ade80;--hold:#fbbf24;--no:#f87171;--focus:#93c5fd;--chip:#262a31}}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;overflow-x:hidden}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 16px}
+h1{font-size:18px;margin:0 0 4px}.note{color:var(--muted);font-size:13px;margin:0 0 10px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.counts{display:flex;flex-wrap:wrap;gap:6px;font-size:13px}.counts span{background:var(--chip);border-radius:999px;padding:2px 10px}
+button,input[type=search]{font:inherit;color:inherit}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 12px;cursor:pointer;min-height:36px}
+.btn[aria-pressed=true]{border-color:var(--ink);font-weight:600}
+input[type=search]{border:1px solid var(--field);background:var(--card);border-radius:8px;padding:6px 10px;min-height:36px;min-width:0;flex:1 1 180px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+main{padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card[data-d=approve]{border-color:var(--ok)}.card[data-d=hold]{border-color:var(--hold)}.card[data-d=reject]{border-color:var(--no)}
+.thumb{aspect-ratio:1/1;background:repeating-conic-gradient(var(--chip) 0 25%,transparent 0 50%) 0 0/16px 16px;display:flex;align-items:center;justify-content:center}
+.thumb img{max-width:100%;max-height:100%;object-fit:contain}
+.body{padding:10px 12px;display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.id{color:var(--muted);font-size:12px}.title{font-weight:600;overflow-wrap:anywhere}.sub{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+dl{margin:0;font-size:12px;display:grid;grid-template-columns:auto 1fr;gap:2px 8px}dt{color:var(--muted)}dd{margin:0;overflow-wrap:anywhere}
+fieldset{border:0;padding:0;margin:4px 0 0;display:flex;gap:6px}legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+fieldset label{flex:1;text-align:center;border:1px solid var(--line);border-radius:8px;padding:6px 0;cursor:pointer;font-size:14px;min-height:36px}
+fieldset input{position:absolute;opacity:0;width:1px;height:1px}
+fieldset input:focus-visible+span{outline:3px solid var(--focus);outline-offset:3px;border-radius:4px}
+label.approve:has(input:checked){background:var(--ok);color:#fff;border-color:var(--ok)}
+label.hold:has(input:checked){background:var(--hold);color:#fff;border-color:var(--hold)}
+label.reject:has(input:checked){background:var(--no);color:#fff;border-color:var(--no)}
+@media (prefers-color-scheme:dark){label.approve:has(input:checked),label.hold:has(input:checked),label.reject:has(input:checked){color:#111}}
+textarea{width:100%;min-height:52px;border:1px solid var(--field);border-radius:8px;background:var(--bg);color:inherit;font:inherit;font-size:13px;padding:6px}
+.hidden{display:none!important}
+#out{position:fixed;inset:auto 16px 16px 16px;max-height:40vh;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;z-index:9}
+#out textarea{min-height:24vh}
+.status{font-size:13px;color:var(--muted);min-height:1.5em}
+@media (max-width:600px){header{position:static}}
+@media (max-width:420px){main{grid-template-columns:1fr;padding:12px}header{padding:10px 12px}}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}}
+</style></head><body>
+<header>
+  <h1>로고 시안 3종 검토 (예시)</h1>
+  <p class="note">마음에 드는 시안은 승인, 고칠 점이 있으면 메모를 남겨 주세요. 결과는 이 브라우저에만 저장됩니다.</p>
+  <div class="bar" role="toolbar" aria-label="보드 도구">
+    <div class="counts" aria-live="polite" id="counts"></div>
+    <button class="btn" data-f="all" aria-pressed="true">전체</button>
+    <button class="btn" data-f="none" aria-pressed="false">미결정</button>
+    <button class="btn" data-f="approve" aria-pressed="false">승인</button>
+    <button class="btn" data-f="hold" aria-pressed="false">보류</button>
+    <button class="btn" data-f="reject" aria-pressed="false">반려</button>
+    <input type="search" id="q" placeholder="제목·번호 검색" aria-label="제목이나 번호로 찾기">
+    <button class="btn" id="copy">JSON 복사</button>
+    <button class="btn" id="reset">초기화</button>
+  </div>
+  <div class="status" id="status" role="status"></div>
+</header>
+<main id="grid"></main>
+<div id="out" class="hidden" role="dialog" aria-label="복사할 결과"><p class="note">자동 복사가 막혀 있으면 아래 글을 모두 선택해 복사하세요.</p><textarea id="outText" readonly></textarea><button class="btn" id="outClose">닫기</button></div>
+<script>
+const BOARD = {"board_id": "example-logo-review-20261008", "title": "로고 시안 3종 검토 (예시)", "note": "마음에 드는 시안은 승인, 고칠 점이 있으면 메모를 남겨 주세요. 결과는 이 브라우저에만 저장됩니다.", "items": [{"id": "001", "title": "시안 A", "subtitle": "둥근 글꼴", "fields": {"색상": "남색", "비율": "1:1"}, "group": "1차"}, {"id": "002", "title": "시안 B", "subtitle": "각진 글꼴", "fields": {"색상": "주황", "비율": "1:1"}, "group": "1차"}, {"id": "003", "title": "시안 C", "subtitle": "손글씨", "fields": {"색상": "검정", "비율": "4:3"}, "group": "2차"}], "generated_at": "2026-10-07T23:32:30+09:00"};
+const KEY = "approval-board:" + BOARD.board_id;
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { state = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const LABEL = {approve: "승인", hold: "보류", reject: "반려"};
+const grid = document.getElementById("grid");
+grid.innerHTML = BOARD.items.map((it, i) => {
+  const f = Object.entries(it.fields || {}).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("");
+  const n = "d" + i;
+  return `<article class="card" data-id="${esc(it.id)}" data-k="${esc(it.id + (it.fingerprint ? ":" + it.fingerprint : ""))}" data-t="${esc((it.id + " " + it.title + " " + (it.subtitle || "")).toLowerCase())}">
+    ${it.image ? `<div class="thumb"><img loading="lazy" src="${esc(it.image)}" alt="${esc(it.title)}"></div>` : ""}
+    <div class="body"><div class="id">${esc(it.group ? it.group + " · " : "")}${esc(it.id)}</div>
+      <div class="title">${esc(it.title)}</div>${it.subtitle ? `<div class="sub">${esc(it.subtitle)}</div>` : ""}
+      ${f ? `<dl>${f}</dl>` : ""}
+      <fieldset><legend>${esc(it.title)} 판정</legend>
+        ${["approve", "hold", "reject"].map(d => `<label class="${d}"><input type="radio" name="${n}" value="${d}"><span>${LABEL[d]}</span></label>`).join("")}
+      </fieldset>
+      <textarea aria-label="${esc(it.title)} 메모" placeholder="메모(선택)"></textarea></div></article>`;
+}).join("");
+const cards = [...grid.querySelectorAll(".card")];
+cards.forEach(c => {
+  const s = state[c.dataset.k] || {};
+  if (s.d) { c.querySelector(`input[value=${s.d}]`).checked = true; c.dataset.d = s.d; }
+  if (s.m) c.querySelector("textarea").value = s.m;
+  c.addEventListener("change", e => {
+    if (e.target.type !== "radio") return;
+    state[c.dataset.k] = Object.assign(state[c.dataset.k] || {}, {d: e.target.value}); c.dataset.d = e.target.value; save(); render();
+  });
+  c.querySelector("textarea").addEventListener("input", e => { state[c.dataset.k] = Object.assign(state[c.dataset.k] || {}, {m: e.target.value}); save(); });
+});
+let filter = "all";
+function render() {
+  const cnt = {approve: 0, hold: 0, reject: 0};
+  cards.forEach(c => { if (c.dataset.d) cnt[c.dataset.d]++; });
+  const none = cards.length - cnt.approve - cnt.hold - cnt.reject;
+  document.getElementById("counts").innerHTML = `<span>전체 ${cards.length}</span><span>미결정 ${none}</span><span>승인 ${cnt.approve}</span><span>보류 ${cnt.hold}</span><span>반려 ${cnt.reject}</span>`;
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  cards.forEach(c => {
+    const d = c.dataset.d || "none";
+    c.classList.toggle("hidden", !((filter === "all" || filter === d) && (!q || c.dataset.t.includes(q))));
+  });
+}
+document.querySelectorAll("[data-f]").forEach(b => b.addEventListener("click", () => {
+  filter = b.dataset.f; document.querySelectorAll("[data-f]").forEach(x => x.setAttribute("aria-pressed", String(x === b))); render();
+}));
+document.getElementById("q").addEventListener("input", render);
+function result() {
+  const key = it => it.id + (it.fingerprint ? ":" + it.fingerprint : "");
+  const decisions = BOARD.items.map(it => { const st = state[key(it)] || {}; return {id: it.id, fingerprint: it.fingerprint || null, title: it.title, decision: st.d ? LABEL[st.d] : "미결정", memo: st.m || ""}; });
+  const counts = decisions.reduce((a, x) => (a[x.decision] = (a[x.decision] || 0) + 1, a), {});
+  return {kind: "user-review-record", submission_approval: false, publication_approval: false,
+          board_id: BOARD.board_id, title: BOARD.title, generated_at: BOARD.generated_at, exported_at: new Date().toISOString(),
+          note: "사용자 검토 기록이며 포털 제출·발행 승인이 아니다", board_note: BOARD.note || "", source: BOARD.source || null, counts, decisions};
+}
+const status = m => { document.getElementById("status").textContent = m; };
+document.getElementById("copy").addEventListener("click", async () => {
+  const txt = JSON.stringify(result(), null, 1);
+  try { await navigator.clipboard.writeText(txt); status("결과 JSON을 복사했습니다. Claude에게 붙여 넣어 주세요."); }
+  catch (e) { const o = document.getElementById("out"); o.classList.remove("hidden"); const t = document.getElementById("outText"); t.value = txt; t.focus(); t.select(); status("자동 복사가 막혀 직접 복사 창을 열었습니다."); }
+});
+document.getElementById("outClose").addEventListener("click", () => document.getElementById("out").classList.add("hidden"));
+let armed = false;
+document.getElementById("reset").addEventListener("click", e => {
+  if (!armed) { armed = true; e.target.textContent = "한 번 더 누르면 모두 지움"; setTimeout(() => { armed = false; e.target.textContent = "초기화"; }, 4000); return; }
+  state = {}; save(); cards.forEach(c => { delete c.dataset.d; c.querySelectorAll("input").forEach(i => i.checked = false); c.querySelector("textarea").value = ""; });
+  armed = false; e.target.textContent = "초기화"; render(); status("판정을 모두 지웠습니다.");
+});
+render();
+</script></body></html>
